@@ -1,67 +1,103 @@
 package ru.netology;
 
 public class Radio {
+    private int currentStation = 10;
+    private int maxRadioStation = 10;
+    private int minRadioStation = 0;
+    private int currentVolume;
+    private int maxVolume = 100;
+    private int minVolume = 0;
 
+    public Radio() {
+    }
 
-    private int currentVolume;          // текущая громкость
-    private int currentRadioStation;        // текущая радиостанция
+    public Radio(int currentStation) {
+        this.currentStation = currentStation;
+        maxRadioStation = currentStation - 1;
+    }
+
+    public int getCurrentStation() {
+        return currentStation;
+    }
+
+    public void setCurrentStation(int currentStation) {
+        if (currentStation > maxRadioStation) {
+            currentStation = minRadioStation;
+        }
+        if (currentStation < minRadioStation) {
+            currentStation = maxRadioStation;
+        }
+        this.currentStation = currentStation;
+    }
+
+    public void pressNextStation() {
+        if (currentStation >= maxRadioStation) {
+            setCurrentStation(minRadioStation);
+        } else {
+            setCurrentStation(currentStation + 1);
+        }
+    }
+
+    public void pressPrevStation() {
+        if (currentStation <= minRadioStation) {
+            setCurrentStation(maxRadioStation);
+        } else {
+            setCurrentStation(currentStation - 1);
+        }
+    }
+
+    public int getMaxRadioStation() {
+        return maxRadioStation;
+    }
+
+    public void setMaxRadioStation(int maxRadioStation) {
+        this.maxRadioStation = maxRadioStation;
+    }
+
+    public int getMinRadioStation() {
+        return minRadioStation;
+    }
+
+    public void setMinRadioStation(int minRadioStation) {
+        this.minRadioStation = minRadioStation;
+    }
 
     public int getCurrentVolume() {
         return currentVolume;
     }
 
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
-    }
-
-    public void setCurrentRadioStation(int newCurrentRadioStation) {  // установка радиостанции
-        if (newCurrentRadioStation > 9) {
-            return;
+    public void setCurrentVolume(int currentVolume) {
+        if (currentVolume > maxVolume) {
+            currentVolume = minVolume;
         }
-        if (newCurrentRadioStation < 0) {
-            return;
+        if (currentVolume < minVolume) {
+            currentVolume = maxVolume;
         }
-        currentRadioStation = newCurrentRadioStation;
+        this.currentVolume = currentVolume;
     }
 
-    public void setCurrentVolume(int newCurrentVolume) {
-//        if (newCurrentVolume > 10) {
-//            return;
-//        }
-//        if (newCurrentVolume < 0) {
-//            return;
-//        }
-        currentVolume = newCurrentVolume;
+    public int getMaxVolume() {
+        return maxVolume;
     }
 
-
-    public void volumeUp() {                // увеличение громкости на 1
-        if (currentVolume < 10) {
-            currentVolume = currentVolume + 1;
-        }
+    public void setMaxVolume(int maxVolume) {
+        this.maxVolume = maxVolume;
     }
 
-    public void volumeDown() {              // уменьшение громкости на 1
-        if (currentVolume > 0) {
-            currentVolume = currentVolume - 1;
-        }
+    public int getMinVolume() {
+        return minVolume;
     }
 
-
-    public void next() {                // следущая радиостанция
-        if (currentRadioStation < 9) {
-            currentRadioStation = currentRadioStation + 1;
-        } else {
-            currentRadioStation = 0;
-        }
+    public void setMinVolume(int minVolume) {
+        this.minVolume = minVolume;
     }
 
-    public void prev() {                // предъидущая радиостанция
-        if (currentRadioStation > 0) {
-            currentRadioStation = currentRadioStation - 1;
-        } else {
-            currentRadioStation = 9;
-        }
+    public void pressVolumeUp() {
+        setCurrentVolume(currentVolume + 1);
+
     }
 
+    public void pressVolumeDown() {
+        setCurrentVolume(currentVolume - 1);
+    }
 }
